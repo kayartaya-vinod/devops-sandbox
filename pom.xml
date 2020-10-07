@@ -50,96 +50,80 @@
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
+		<pluginManagement>
 
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
 
+				<!-- JACOCO -->
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.5</version>
+					<configuration>
+						<!-- <excludes> <exclude>co/vinod/entity/*</exclude> <exclude>co/vinod/HelloWorld*</exclude> 
+							</excludes> -->
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
 
-			<!-- JACOCO -->
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.5</version>
-				<configuration>
-					<!-- <excludes>
-						<exclude>co/vinod/entity/*</exclude>
-						<exclude>co/vinod/HelloWorld*</exclude>
-					</excludes> -->
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
+						</execution>
 
-					</execution>
+						<execution>
+							<id>report</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
 
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
+						<execution>
+							<id>jacoco-check</id>
+							<goals>
+								<goal>check</goal>
+							</goals>
+							<configuration>
+								<rules>
+									<rule>
+										<element>PACKAGE</element>
+										<excludes>
+											<exclude>co.vinod.entity</exclude>
+										</excludes>
+										<limits>
+											<limit>
+												<counter>LINE</counter>
+												<value>COVEREDRATIO</value>
+												<minimum>0.5</minimum>
+											</limit>
+										</limits>
+									</rule>
+								</rules>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
 
-					<execution>
-						<id>jacoco-check</id>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<rule>
-									<element>PACKAGE</element>
-									<excludes>
-										<exclude>co.vinod.entity</exclude>
-									</excludes>
-									<limits>
-										<limit>
-											<counter>LINE</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>0.5</minimum>
-										</limit>
-									</limits>
-								</rule>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> 
-			
-			<!-- SPOTIFY dockerfile maven -->
-<!-- 			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.10</version>
-				<executions>
-					<execution>
-						<id>default</id>
-						<goals>
-							<goal>build</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<repository>learnwithvinod/${project.name}</repository>
-					<tag>${project.version}</tag>
-					<buildArgs>
-						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
-				</configuration>
-			</plugin> -->
-		</plugins>
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.6.0.1398</version>
+				</plugin>
+			</plugins>
+
+		</pluginManagement>
 	</build>
 
 </project>
