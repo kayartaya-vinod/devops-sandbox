@@ -14,7 +14,11 @@ pipeline {
           }
       }
       
-
+      stage("quality") {
+      	steps {
+      		sh "mvn sonar:sonar"
+      	}
+      }
       stage("build"){
 
           
