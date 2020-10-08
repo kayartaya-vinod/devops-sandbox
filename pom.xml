@@ -17,6 +17,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<sonar.host.url>http://sonarserver:9000/</sonar.host.url>
 	</properties>
 
 	<dependencies>
